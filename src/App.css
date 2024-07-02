@@ -11,6 +11,7 @@
   background-color: #fff;
   margin: 10px;
   display: inline-flex;
+  position: relative;
   justify-content: center;
   align-items: center;
   font-size: 24px;
@@ -18,7 +19,7 @@
 }
 
 .board {
-  margin-right: 32px;
+  margin-right: 20px;
 }
 
 .button {
