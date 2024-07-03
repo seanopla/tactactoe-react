@@ -1,9 +1,7 @@
 import "./App.css"
 import { useState } from "react"
-import Button from "./components/Button"
 import calculateWinner from "./utils/calculateWinner"
 import Board from "./components/Board"
-import Square from "./components/Square"
 import GameInfo from "./components/GameInfo"
 import Timeline from "./components/Timeline"
 
@@ -19,11 +17,6 @@ const App = () => {
   const board = timeline[currentStep].board
   const isXNext = timeline[currentStep].isXNext
   const winner = calculateWinner(board)
-
-  const handlerResetGameClick = () => {
-    // setBoard(Array(9).fill(null))
-    // setIsXNext(false)
-  }
 
   const handleSquareClick = (index) => {
     if (winner || board[index]) return
@@ -49,12 +42,9 @@ const App = () => {
     <div className="container">
       <Board board={board} onAction={handleSquareClick} />
       <div>
-        <GameInfo
-          winner={winner}
-          handlerResetGameClick={handlerResetGameClick}
-          isXNext={isXNext}
-        />
+        <GameInfo winner={winner} isXNext={isXNext} />
         <Timeline
+          currentStep={currentStep}
           timeline={timeline}
           onTimelineItemClick={handlerTimelineItemClick}
         />

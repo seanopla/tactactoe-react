@@ -1,6 +1,6 @@
 import Button from "./Button"
 
-const GameInfo = ({ winner, handlerResetGameClick, isXNext }) => {
+const GameInfo = ({ winner, isXNext }) => {
   return (
     <div className="game-info">
       {winner ? (
@@ -8,7 +8,6 @@ const GameInfo = ({ winner, handlerResetGameClick, isXNext }) => {
       ) : (
         <h2>Next Player: {isXNext ? "X" : "O"}</h2>
       )}
-      <Button onClick={handlerResetGameClick}>Start Over</Button>
     </div>
   )
 }
