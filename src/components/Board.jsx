@@ -1,7 +1,11 @@
 import React from "react"
 import Square from "./Square"
 
-const Board = ({ board, handleSquareClick }) => {
+const Board = ({ board, onAction }) => {
+  const handleSquareClick = (index) => {
+    onAction(index)
+  }
+
   return (
     <div className="board">
       <div className="row">

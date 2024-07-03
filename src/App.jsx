@@ -8,42 +8,47 @@ import GameInfo from "./components/GameInfo"
 import Timeline from "./components/Timeline"
 
 const App = () => {
-  const [isXNext, setIsXNext] = useState(false)
-  const [board, setBoard] = useState(Array(9).fill(null))
+  const [timeline, setTimeline] = useState([
+    {
+      isXNext: false,
+      board: Array(9).fill(null),
+    },
+  ])
+
+  const board = timeline[timeline.length - 1].board
+  const isXNext = timeline[timeline.length - 1].isXNext
   const winner = calculateWinner(board)
 
   const handlerResetGameClick = () => {
-    setBoard(Array(9).fill(null))
-    setIsXNext(false)
+    // setBoard(Array(9).fill(null))
+    // setIsXNext(false)
   }
 
   const handleSquareClick = (index) => {
-    if (winner) return
-    setBoard((currBoard) => {
-      const newBoard = [...currBoard]
+    if (winner || board[index]) return
 
-      if (newBoard[index]) {
-        return newBoard
-      }
+    const newBoard = [...board]
+    newBoard[index] = isXNext ? "X" : "O"
 
-      newBoard[index] = isXNext ? "X" : "O"
-
-      setIsXNext(!isXNext)
-      return newBoard
-    })
-    console.log("CLICKED SQUARE NUMBER")
+    setTimeline([
+      ...timeline,
+      {
+        board: newBoard,
+        isXNext: !isXNext,
+      },
+    ])
   }
 
   return (
     <div className="container">
-      <Board board={board} handleSquareClick={handleSquareClick} />
+      <Board board={board} onAction={handleSquareClick} />
       <div>
         <GameInfo
           winner={winner}
           handlerResetGameClick={handlerResetGameClick}
           isXNext={isXNext}
         />
-        <Timeline />
+        <Timeline timeline={timeline} />
       </div>
     </div>
   )

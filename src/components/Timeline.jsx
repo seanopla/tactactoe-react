@@ -1,13 +1,13 @@
 import React from "react"
 import Button from "./Button"
 
-const Timeline = () => {
+const Timeline = ({ timeline, onTimeline }) => {
   return (
     <>
       <h2>History</h2>
-      <Button>Langkah 1</Button>
-      <Button>Langkah 2</Button>
-      <Button>Langkah 3</Button>
+      {timeline.map((_, index) => (
+        <Button key={index}>Langkah #{index + 1}</Button>
+      ))}
     </>
   )
 }
