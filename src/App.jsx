@@ -15,8 +15,9 @@ const App = () => {
     },
   ])
 
-  const board = timeline[timeline.length - 1].board
-  const isXNext = timeline[timeline.length - 1].isXNext
+  const [currentStep, setCurrentStep] = useState(0)
+  const board = timeline[currentStep].board
+  const isXNext = timeline[currentStep].isXNext
   const winner = calculateWinner(board)
 
   const handlerResetGameClick = () => {
@@ -31,12 +32,17 @@ const App = () => {
     newBoard[index] = isXNext ? "X" : "O"
 
     setTimeline([
-      ...timeline,
+      ...timeline.slice(0, currentStep + 1),
       {
         board: newBoard,
         isXNext: !isXNext,
       },
     ])
+    setCurrentStep(currentStep + 1)
+  }
+
+  const handlerTimelineItemClick = (index) => {
+    setCurrentStep(index)
   }
 
   return (
@@ -48,7 +54,10 @@ const App = () => {
           handlerResetGameClick={handlerResetGameClick}
           isXNext={isXNext}
         />
-        <Timeline timeline={timeline} />
+        <Timeline
+          timeline={timeline}
+          onTimelineItemClick={handlerTimelineItemClick}
+        />
       </div>
     </div>
   )
